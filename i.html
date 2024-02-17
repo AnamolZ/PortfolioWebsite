@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Limit with CSS</title>
+<style>
+  .limited-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 150px; /* Adjust according to your needs */
+  }
+
+  .limited-text:hover {
+    max-width: none;
+    overflow: visible;
+    white-space: normal;
+  }
+</style>
+</head>
+<body>
+
+<div class="limited-text">
+  This is a long sentence that will be limited to a certain number of words.
+</div>
+
+</body>
+</html>
