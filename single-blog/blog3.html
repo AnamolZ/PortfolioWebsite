@@ -3,7 +3,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Anamol's Blog</title>
+	<title>Subrat's Blog</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
@@ -68,12 +68,13 @@
 					<div class="col-md-12 text-center">
 						<h2 class="head-title">About Me</h2>
 						<a href="#" class="about-img">
-							<img class="img-responsive" src="../images/about.jpg" alt="html5 bootstrap template by colorlib">
+							<img class="img-responsive" src="../images/about3.jpg" alt="html5 bootstrap template by colorlib">
 						</a>
-						<span class="author-name">Anamol Dhakal</span>
-						<p>Hello there! I'm a budding computer scientist currently pursuing my bachelor's degree at Leeds Beckett University, 
-							majoring in the world of ones and zeros – Computer Science. While textbooks and lectures lay the foundation, 
-							my love for programming stretches far beyond the classroom.</p>
+						<span class="author-name">Subrat Baral</span>
+						<p>Hello! I’m an enthusiastic learner deeply engrossed in my school-level Computer Science education.
+							 As a passionate learner, avid reader, and technology enthusiast, I find myself continuously drawn to the expansive world of computer science and its diverse applications across various domains.
+							  My curiosity drives me to constantly explore new concepts and broaden my understanding in the fast-paced, ever-evolving technological landscape. 
+							  Moreover, my passion for programming extends well beyond the classroom, influencing various aspects of my daily life and future aspirations.</p>
 					</div>
 				</div>
 			</div>
@@ -99,13 +100,52 @@
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1">
 						<div class="blog-entry animate-box col-pb-sm">
-							<a href="#" class="blog-img"><img src="#" class="img-responsive" alt="Comming Soon!"></a>
+							<a href="#" class="blog-img"><img src="../images/3 way handshake.png" class="img-responsive" alt="html5 bootstrap template by colorlib"></a>
 							<div class="desc">
-                                <h1>COMMING SOON!</h1>
+                                <h1>Demystifying Three-Way Handshaking: A Comprehensive Guide</h1>
+								April 22,2024<br>
+								<br><p>In the realm of computer networking, establishing a reliable connection between devices is crucial for seamless data transmission.
+									 One of the fundamental techniques used for this purpose is the Three-Way Handshake.
+									  In this guide, we'll delve into the intricacies of Three-Way Handshaking, exploring its significance and the steps involved in establishing a TCP connection.</p><br>
+									<br>
+									<img src="../images/3 way 2.png"><br>
+									
+									<p>
+										<strong>Understanding Three-Way Handshaking</strong>
+											Three-Way Handshaking is a process used by the TCP (Transmission Control Protocol) to establish a connection between a client and a server before data exchange begins.
+											 This handshake ensures that both parties agree to communicate and synchronize certain parameters before initiating data transmission.
+											 Let's explore each step of the Three-Way Handshake:<br>
+
+											<strong> Step 1: SYN (Synchronize)</strong>
+
+<br><strong>Client Sends SYN:</strong> The process commences with the client sending a SYN packet to the server. This packet contains a sequence number, which is a randomly chosen value by the client to initiate the connection. The sequence number is crucial for synchronizing data transmission between the client and server.<br>
+
+<br><strong>Step 2: SYN-ACK (Synchronize-Acknowledgment)</strong>
+
+<br><strong>Server Responds with SYN-ACK:</strong> Upon receiving the SYN packet from the client, the server responds with a SYN-ACK packet. In this packet, the server acknowledges the client's SYN packet by incrementing the client's sequence number by one and choosing its own sequence number for the connection. The SYN-ACK packet indicates that the server agrees to establish a connection and includes its own sequence number.<br>
+
+<br><strong>Step 3: ACK (Acknowledgment)</strong>
+
+<br><strong>Client Acknowledges SYN-ACK:</strong>Finally, the client acknowledges the server's SYN-ACK packet by sending an ACK packet. The client increments both its own sequence number and the server's sequence number by one, confirming the establishment of the TCP connection. At this point, both client and server are synchronized and ready to exchange data.<br>
+<img src="../images/3 way 3.png">
+<br><strong>Importance of Three-Way Handshaking</strong><br>
+The Three-Way Handshake serves several critical purposes in TCP/IP communication:<br>
+<ol>
+<br><li><strong>Reliable Connection Establishment:</strong> By exchanging SYN and SYN-ACK packets, the client and server verify each other's availability and agreement to communicate, ensuring a reliable connection.</li><br>
+<br><li><strong>Synchronization of Sequence Numbers:</strong> The exchange of sequence numbers during the handshake allows both parties to synchronize their data transmission, preventing issues such as data corruption and packet loss.</li><br>
+<br><li><strong>Error Detection and Correction: </strong>The acknowledgment mechanism in the Three-Way Handshake enables error detection and retransmission of lost packets, enhancing the reliability of data transmission.</li><br>
+</ol><br>
+<strong>Conclusion</strong>
+<br>In conclusion, Three-Way Handshaking is a fundamental process in TCP/IP networking, facilitating the establishment of reliable connections between devices. 
+By following the SYN, SYN-ACK, and ACK sequence, the client and server synchronize their parameters and agree to communicate, ensuring seamless data transmission.
+ Understanding Three-Way Handshaking is essential for network engineers and developers to build robust and efficient communication systems in the digital age.<br>
+ <br>Stay tuned for more insights into networking protocols and techniques in our upcoming posts!<br>
+</p>
+									 
 								<div class="author text-center">
 									<a href="../about.html" class="author-img" style="background-image: url(images/about.jpg);"></a>
-									<h3><a href="../about.html">Anamol Dhakal</a></h3>
-									<p>COMMING SOON!</p>
+									<h3><a href="https://github.com/ParsuramBaral">Subrat Baral</a></h3>
+									
 								</div>
 
 								<div class="row">
