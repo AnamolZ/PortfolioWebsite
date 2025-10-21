@@ -1,31 +1,24 @@
 ;(function () {
     'use strict';
 
-    // Adjust full height for specific elements
-    var fullHeight = function () {
-        $('.js-fullheight').css('height', $(window).height());
-        $(window).resize(function () {
-            $('.js-fullheight').css('height', $(window).height());
-        });
+    const setFullHeight = () => {
+        const updateHeight = () => $('.js-fullheight').css('height', $(window).height());
+        updateHeight();
+        $(window).resize(updateHeight);
     };
 
-    // Animate content on scroll
-    var contentWayPoint = function () {
-        var i = 0;
+    const animateOnScroll = () => {
+        let i = 0;
         $('.animate-box').waypoint(function (direction) {
             if (direction === 'down' && !$(this.element).hasClass('animated')) {
                 i++;
                 $(this.element).addClass('item-animate');
-                setTimeout(function () {
+                setTimeout(() => {
                     $('body .animate-box.item-animate').each(function (k) {
-                        var el = $(this);
-                        setTimeout(function () {
-                            var effect = el.data('animate-effect');
-                            if (effect === 'fadeIn') {
-                                el.addClass('fadeIn animated');
-                            } else {
-                                el.addClass('fadeInUp animated');
-                            }
+                        const el = $(this);
+                        setTimeout(() => {
+                            const effect = el.data('animate-effect');
+                            el.addClass(`${effect === 'fadeIn' ? 'fadeIn' : 'fadeInUp'} animated`);
                             el.removeClass('item-animate');
                         }, k * 200, 'easeInOutExpo');
                     });
@@ -34,10 +27,8 @@
         }, { offset: '85%' });
     };
 
-    // Initialize Owl Carousel for .owl-carousel3
-    var owlCarouselFeatureSlide = function () {
-        var owl3 = $('.owl-carousel3');
-        owl3.owlCarousel({
+    const initOwlCarousel = () => {
+        $('.owl-carousel3').owlCarousel({
             animateOut: 'fadeOut',
             animateIn: 'fadeIn',
             autoplay: true,
@@ -54,39 +45,82 @@
         });
     };
 
-    // Execute functions on document ready
     $(function () {
-        fullHeight();
-        contentWayPoint();
-        owlCarouselFeatureSlide();
+        setFullHeight();
+        animateOnScroll();
+        initOwlCarousel();
     });
 })();
 
-// Parallax effect for scroll background
-window.addEventListener('scroll', function () {
-    var scrollPosition = window.scrollY;
-    document.querySelector('.scroll-image').style.backgroundPosition = 'center ' + (-scrollPosition / 2) + 'px';
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const image = document.querySelector('.scroll-image');
+    if (image) image.style.backgroundPosition = `center ${-scrollY / 2}px`;
 });
 
-// Add this to the main.js file
-document.addEventListener('DOMContentLoaded', function() {
-    const themeToggle = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme') || 'light';
+document.addEventListener('DOMContentLoaded', () => {
+    const playlist = [
+        { title: 'Bite Your Nails', artist: 'Marcin', src: '../audio/Bite Your Nails.mp3', art: '../audio/Bite Your Nails.png' },
+        { title: 'G.O.A.T.', artist: 'Polyphia', src: '../audio/GOAT.mp3', art: '../audio/GOAT.png' },
+        { title: 'Art Of Guitar', artist: 'Marcin, RJ Pasin', src: '../audio/ART OF GUITAR.mp3', art: '../audio/ART OF GUITAR.png' },
+        // { title: 'Succession (HBO Original Series Soundtrack)', artist: 'Nicholas Britell', src: '../audio/Succession.mp3', art: '../audio/Succession.jpg' },
+        { title: 'Secrets (Radio Edit)', artist: 'Tiësto, KSHMR, and VASSY', src: '../audio/Secrets.mp3', art: '../audio/Secrets.jpg' }
+        // { title: '239', artist: 'Prznt, Lilo Key, Adrian Chafer', src: '../audio/Prznt - 239.mp3', art: '../audio/Prznt - 239.png' },
+        // { title: 'Vaa Vaa Pakkam Vaa', artist: 'Ilaiyaraaja, S. P. Balasubrahmanyam, Vani Jairam, Muthulingam, DJ Gowtham', src: '../audio/Vaa Vaa Pakkam Vaa.mp3', art: '../audio/Vaa Vaa Pakkam Vaa.png' }
+    ];
 
-    // Set initial theme
-    document.body.setAttribute('data-theme', currentTheme);
-    updateIcon(currentTheme);
+    let currentTrackIndex = 0;
+    const audio = document.getElementById('audioPlayer');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playPauseIcon = playPauseBtn.querySelector('i');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const albumArt = document.querySelector('.album-art-rotating');
+    const staticAlbumArt = document.getElementById('staticAlbumArt');
+    const trackTitle = document.getElementById('trackTitle');
 
-    themeToggle.addEventListener('click', function() {
-        const isDark = document.body.getAttribute('data-theme') === 'dark';
-        const newTheme = isDark ? 'light' : 'dark';
-        document.body.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateIcon(newTheme);
-    });
+    audio.volume = 0.2;
 
-    function updateIcon(theme) {
-        const icon = theme === 'dark' ? 'icon-sun' : 'icon-moon';
-        themeToggle.innerHTML = `<i class="${icon}"></i>`;
-    }
+    const loadTrack = index => {
+        const track = playlist[index];
+        trackTitle.textContent = track.title;
+        staticAlbumArt.src = track.art;
+        audio.src = track.src;
+    };
+
+    const playTrack = () => {
+        audio.play();
+        playPauseIcon.classList.replace('fa-play', 'fa-pause');
+        albumArt.style.animationPlayState = 'running';
+        albumArt.style.boxShadow = '0 0 20px var(--player-highlight)';
+    };
+
+    const pauseTrack = () => {
+        audio.pause();
+        playPauseIcon.classList.replace('fa-pause', 'fa-play');
+        albumArt.style.animationPlayState = 'paused';
+        albumArt.style.boxShadow = '0 0 8px rgba(0,0,0,0.3)';
+    };
+
+    const togglePlayPause = () => audio.paused ? playTrack() : pauseTrack();
+
+    const nextTrack = () => {
+        currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+        loadTrack(currentTrackIndex);
+        playTrack();
+    };
+
+    const prevTrack = () => {
+        currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+        loadTrack(currentTrackIndex);
+        playTrack();
+    };
+
+    playPauseBtn.addEventListener('click', togglePlayPause);
+    nextBtn.addEventListener('click', nextTrack);
+    prevBtn.addEventListener('click', prevTrack);
+    audio.addEventListener('ended', nextTrack);
+
+    loadTrack(currentTrackIndex);
+    albumArt.style.animationPlayState = 'paused';
 });
